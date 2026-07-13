@@ -1,6 +1,7 @@
 package com.langhanz.workshopmongodb.services;
 
 import com.langhanz.workshopmongodb.domain.User;
+import com.langhanz.workshopmongodb.dto.UserDTO;
 import com.langhanz.workshopmongodb.repository.UserRepository;
 import com.langhanz.workshopmongodb.services.exception.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,15 +17,23 @@ public class UserService {
     private UserRepository repo;
 
     public List<User> findAll(){
-
         return repo.findAll();
+    }
+
+    public User fromDTO(UserDTO obj){
+        return new User(obj.getId(), obj.getName(), obj.getEmail());
     }
 
     public User findById(String id){
         Optional<User> user = repo.findById(id);
 
         return user.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado."));
-
     }
+
+    public User insert(User obj){
+        return repo.insert(obj);
+    }
+
+
 
 }
