@@ -3,6 +3,7 @@ package com.langhanz.workshopmongodb.config;
 import com.langhanz.workshopmongodb.domain.Post;
 import com.langhanz.workshopmongodb.domain.User;
 import com.langhanz.workshopmongodb.dto.AuthorDTO;
+import com.langhanz.workshopmongodb.dto.CommentDTO;
 import com.langhanz.workshopmongodb.repository.PostRepository;
 import com.langhanz.workshopmongodb.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +40,13 @@ public class Instantiation implements CommandLineRunner {
 
         Post post1 = new Post(null, sdf.parse("21/03/2026"), "Partiu Viagem!", "Vou pra SP", new AuthorDTO(maria));
         Post post2 = new Post(null, sdf.parse("23/03/2026"), "Bom dia!", "Acordei feliz", new AuthorDTO(maria));
+
+        CommentDTO c1 = new CommentDTO("Valeu mano", sdf.parse("23/03/2026"), new AuthorDTO(alex));
+        CommentDTO c2 = new CommentDTO("Bom dia", sdf.parse("23/03/2026"), new AuthorDTO(alex));
+        CommentDTO c3 = new CommentDTO("É isso aí", sdf.parse("23/03/2026"), new AuthorDTO(alex));
+
+        post1.getComments().addAll(Arrays.asList(c1,c2));
+        post2.getComments().addAll(Arrays.asList(c3));
 
         postRepository.saveAll(Arrays.asList(post1, post2));
 
